@@ -3,26 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MOVE · Sistema de Supervisión</title>
+<title>MOVE · Sistema de Supervisión · Aqua Edition</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root {
-  --bg: #07090f;
-  --surface: #0d1117;
-  --surface2: #131924;
-  --surface3: #1a2233;
-  --border: rgba(255,255,255,0.06);
-  --border2: rgba(255,255,255,0.10);
-  --accent: #3b82f6;
-  --accent2: #6366f1;
-  --green: #10b981;
-  --yellow: #f59e0b;
-  --red: #ef4444;
+  --bg: #0a1a1a;
+  --surface: #0f2a2a;
+  --surface2: #153e3a;
+  --surface3: #1a524c;
+  --border: rgba(45,212,191,0.12);
+  --border2: rgba(45,212,191,0.22);
+  --accent: #2dd4bf;
+  --accent2: #14b8a6;
+  --accent-dark: #0d9488;
+  --green: #2dd4bf;
+  --green2: #5eead4;
+  --yellow: #fbbf24;
+  --red: #f87171;
   --text: #e2e8f0;
   --text2: #94a3b8;
-  --text3: #475569;
+  --text3: #5b6e8c;
   --font: 'Space Grotesk', sans-serif;
   --mono: 'DM Mono', monospace;
 }
@@ -30,22 +32,19 @@
 html{scroll-behavior:smooth}
 body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 
-/* ── SCROLLBAR ── */
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:var(--surface)}
 ::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:3px}
 
-/* ── BACKGROUND GRID ── */
 body::before{
   content:'';position:fixed;inset:0;
-  background-image:linear-gradient(rgba(59,130,246,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.03) 1px,transparent 1px);
+  background-image:linear-gradient(rgba(45,212,191,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,0.03) 1px,transparent 1px);
   background-size:40px 40px;pointer-events:none;z-index:0
 }
 
-/* ── NAV ── */
 nav{
   position:sticky;top:0;z-index:100;
-  background:rgba(7,9,15,0.85);backdrop-filter:blur(20px);
+  background:rgba(10,26,26,0.85);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border2);
   padding:0 24px;height:60px;
   display:flex;align-items:center;justify-content:space-between;
@@ -53,15 +52,15 @@ nav{
 .nav-logo{display:flex;align-items:center;gap:10px}
 .nav-logo-icon{
   width:32px;height:32px;border-radius:8px;
-  background:linear-gradient(135deg,#1e40af,#3b82f6);
+  background:linear-gradient(135deg,#0d9488,#2dd4bf);
   display:flex;align-items:center;justify-content:center;font-size:14px
 }
 .nav-logo-text{font-weight:700;font-size:16px;letter-spacing:-0.5px}
 .nav-logo-text span{color:var(--accent)}
 .nav-right{display:flex;align-items:center;gap:12px}
 .nav-badge{
-  background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.25);
-  color:#93c5fd;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;
+  background:rgba(45,212,191,0.12);border:1px solid rgba(45,212,191,0.25);
+  color:#5eead4;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;
   font-family:var(--mono);letter-spacing:0.5px
 }
 .btn-back{
@@ -74,31 +73,25 @@ nav{
 .btn-back:hover{background:var(--surface3);color:var(--text)}
 .btn-back.visible{display:flex}
 
-/* ── PAGES ── */
 #page-grid,#page-detail,#page-form{position:relative;z-index:1}
 .page-hidden{display:none!important}
 
-/* ── GRID HEADER ── */
 .grid-header{padding:32px 24px 24px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
 .grid-title{font-size:28px;font-weight:700;letter-spacing:-1px}
-.grid-title span{
-  background:linear-gradient(90deg,#60a5fa,#818cf8);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent
-}
+.grid-title span{background:linear-gradient(90deg,#2dd4bf,#5eead4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .grid-subtitle{color:var(--text2);font-size:13px;margin-top:4px}
 .grid-actions{display:flex;gap:10px}
 
-/* ── BUTTONS ── */
 .btn-primary{
   display:flex;align-items:center;gap:8px;
-  background:linear-gradient(135deg,#1d4ed8,#3b82f6);
+  background:linear-gradient(135deg,#0d9488,#14b8a6);
   color:#fff;font-size:13px;font-weight:600;
   padding:9px 18px;border-radius:10px;cursor:pointer;
   border:none;font-family:var(--font);
-  box-shadow:0 4px 20px rgba(59,130,246,0.25);
+  box-shadow:0 4px 20px rgba(45,212,191,0.25);
   transition:all 0.2s
 }
-.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(59,130,246,0.35)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(45,212,191,0.35)}
 .btn-secondary{
   display:flex;align-items:center;gap:8px;
   background:var(--surface2);border:1px solid var(--border2);
@@ -108,7 +101,6 @@ nav{
 }
 .btn-secondary:hover{background:var(--surface3)}
 
-/* ── SUMMARY STATS BAR ── */
 .stats-bar{
   display:flex;gap:1px;margin:0 24px 28px;
   background:var(--border);border-radius:14px;overflow:hidden;
@@ -124,14 +116,12 @@ nav{
 .stat-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;font-weight:500}
 .stat-sub{font-size:11px;color:var(--text2)}
 
-/* ── CARDS GRID ── */
 .cards-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
   gap:16px;padding:0 24px 40px
 }
 
-/* ── TRAINER CARD ── */
 .trainer-card{
   background:var(--surface);border:1px solid var(--border2);
   border-radius:16px;padding:20px;cursor:pointer;
@@ -142,8 +132,7 @@ nav{
   background:linear-gradient(90deg,var(--accent),var(--accent2));
   transform:scaleX(0);transform-origin:left;transition:transform 0.3s
 }
-.trainer-card:hover{transform:translateY(-3px);border-color:rgba(59,130,246,0.35);
-  box-shadow:0 12px 40px rgba(0,0,0,0.4),0 0 0 1px rgba(59,130,246,0.1)}
+.trainer-card:hover{transform:translateY(-3px);border-color:rgba(45,212,191,0.45);box-shadow:0 12px 40px rgba(0,0,0,0.4),0 0 0 1px rgba(45,212,191,0.15)}
 .trainer-card:hover::before{transform:scaleX(1)}
 
 .card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
@@ -156,21 +145,19 @@ nav{
   font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;
   font-family:var(--mono)
 }
-.badge-green{background:rgba(16,185,129,0.12);color:#34d399;border:1px solid rgba(16,185,129,0.2)}
+.badge-green{background:rgba(45,212,191,0.12);color:#5eead4;border:1px solid rgba(45,212,191,0.2)}
 .badge-yellow{background:rgba(245,158,11,0.12);color:#fbbf24;border:1px solid rgba(245,158,11,0.2)}
 .badge-red{background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.2)}
 
 .card-name{font-size:17px;font-weight:700;letter-spacing:-0.3px;margin-bottom:2px}
 .card-meta{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px}
-.card-dot{width:5px;height:5px;border-radius:50%;background:var(--green)}
+.card-dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
 
-/* ── CARD KPIs ── */
 .card-kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
 .kpi-item{background:var(--surface2);border-radius:10px;padding:10px 12px}
 .kpi-val{font-size:20px;font-weight:700;font-family:var(--mono);letter-spacing:-0.5px}
 .kpi-lbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.6px;margin-top:2px}
 
-/* ── MINI CHART ── */
 .mini-chart-wrap{
   margin-top:14px;background:var(--surface2);border-radius:10px;
   padding:10px 12px;display:flex;align-items:center;gap:14px
@@ -182,7 +169,6 @@ nav{
 .legend-label{color:var(--text2);flex:1;margin-left:6px}
 .legend-val{font-weight:600;font-family:var(--mono)}
 
-/* ── CARD FOOTER ── */
 .card-footer{
   margin-top:14px;padding-top:12px;border-top:1px solid var(--border);
   display:flex;justify-content:space-between;align-items:center
@@ -190,20 +176,17 @@ nav{
 .card-footer-left{font-size:11px;color:var(--text3)}
 .card-arrow{
   width:28px;height:28px;border-radius:8px;
-  background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15);
+  background:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.15);
   display:flex;align-items:center;justify-content:center;
   color:var(--accent);font-size:11px;transition:all 0.2s
 }
-.trainer-card:hover .card-arrow{background:rgba(59,130,246,0.2);transform:translateX(2px)}
+.trainer-card:hover .card-arrow{background:rgba(45,212,191,0.2);transform:translateX(2px)}
 
-/* ── PROGRESS BAR ── */
 .progress-wrap{margin-top:3px}
 .progress-bar{height:3px;background:var(--surface3);border-radius:2px;overflow:hidden;margin-top:4px}
 .progress-fill{height:100%;border-radius:2px;transition:width 0.6s cubic-bezier(0.4,0,0.2,1)}
 
-/* ══════════════════════════════════════════════════
-   DASHBOARD INDIVIDUAL
-══════════════════════════════════════════════════ */
+/* Detail Page */
 #page-detail{padding:0 0 60px}
 .detail-header{
   padding:28px 24px 24px;border-bottom:1px solid var(--border);
@@ -216,39 +199,28 @@ nav{
 }
 .detail-name{font-size:24px;font-weight:700;letter-spacing:-0.5px}
 .detail-sub{font-size:13px;color:var(--text2);margin-top:2px;display:flex;align-items:center;gap:8px}
-.detail-score{
-  margin-left:auto;text-align:right
-}
-.detail-score-num{
-  font-size:42px;font-weight:700;font-family:var(--mono);
-  letter-spacing:-2px;line-height:1
-}
+.detail-score{margin-left:auto;text-align:right}
+.detail-score-num{font-size:42px;font-weight:700;font-family:var(--mono);letter-spacing:-2px;line-height:1}
 .detail-score-lbl{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px}
 
-/* KPI ROW */
 .kpi-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;padding:24px 24px 0}
 .kpi-card{
   background:var(--surface);border:1px solid var(--border2);
   border-radius:12px;padding:16px;position:relative;overflow:hidden
 }
-.kpi-card::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:2px
-}
 .kpi-card-num{font-size:30px;font-weight:700;font-family:var(--mono);letter-spacing:-1px}
 .kpi-card-lbl{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.7px;margin-top:4px}
 .kpi-card-icon{position:absolute;top:12px;right:12px;font-size:18px;opacity:0.2}
 
-/* CHARTS ROW */
 .charts-row{display:grid;grid-template-columns:1fr 1.6fr;gap:16px;padding:16px 24px}
 .chart-card{
   background:var(--surface);border:1px solid var(--border2);
   border-radius:14px;padding:20px
 }
-.chart-title{font-size:14px;font-weight:600;color:var(--text2);margin-bottom:16px;
-  text-transform:uppercase;letter-spacing:0.6px;font-size:11px}
+.chart-title{font-size:14px;font-weight:600;color:var(--text2);margin-bottom:16px;text-transform:uppercase;letter-spacing:0.6px;font-size:11px}
 .chart-canvas-wrap{position:relative;display:flex;justify-content:center}
 
-/* AUDITS TABLE */
+/* Audits Section */
 .audits-section{padding:0 24px}
 .section-header{
   display:flex;justify-content:space-between;align-items:center;
@@ -262,7 +234,7 @@ nav{
   background:var(--surface);border:1px solid var(--border2);
   border-radius:12px;padding:16px;cursor:pointer;transition:all 0.2s
 }
-.audit-item:hover{border-color:rgba(59,130,246,0.3);background:var(--surface2)}
+.audit-item:hover{border-color:rgba(45,212,191,0.3);background:var(--surface2)}
 .audit-item-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .audit-socio{font-size:15px;font-weight:600}
 .audit-date{font-size:11px;color:var(--text3);font-family:var(--mono)}
@@ -271,33 +243,34 @@ nav{
   font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px;
   font-family:var(--mono);letter-spacing:0.3px
 }
-.sem-chip.g{background:rgba(16,185,129,0.12);color:#34d399}
+.sem-chip.g{background:rgba(45,212,191,0.12);color:#5eead4}
 .sem-chip.y{background:rgba(245,158,11,0.12);color:#fbbf24}
 .sem-chip.r{background:rgba(239,68,68,0.12);color:#f87171}
 .audit-obs{font-size:12px;color:var(--text2);margin-top:8px;line-height:1.5}
 
-/* EXPANDABLE AUDIT DETAIL */
+/* Expanded Audit Detail */
 .audit-expanded{
   display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)
 }
 .audit-expanded.open{display:block}
 .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
 .detail-block{background:var(--surface2);border-radius:10px;padding:12px}
-.detail-block-title{font-size:10px;text-transform:uppercase;letter-spacing:0.8px;color:var(--text3);margin-bottom:6px;font-weight:600}
+.detail-block-title{font-size:10px;text-transform:uppercase;letter-spacing:0.8px;color:var(--accent2);margin-bottom:6px;font-weight:600}
 .detail-block-content{font-size:12px;color:var(--text2);line-height:1.6}
 .plan-list{list-style:none;display:flex;flex-direction:column;gap:4px}
 .plan-list li{display:flex;gap:6px;font-size:12px;color:var(--text2)}
 .plan-list li::before{content:'→';color:var(--accent);flex-shrink:0}
-.sem-full-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.sem-full-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
 .sem-full{
-  display:flex;align-items:center;gap:6px;
-  background:var(--surface3);border-radius:8px;padding:5px 10px;font-size:11px
+  display:flex;align-items:center;gap:8px;
+  background:var(--surface3);border-radius:8px;padding:5px 12px;font-size:11px
 }
-.sem-section-name{color:var(--text2)}
+.sem-section-name{color:var(--text2);font-size:10px;text-transform:uppercase;letter-spacing:0.5px}
+.obs-full{background:var(--surface2);border-radius:10px;padding:12px;margin-top:10px}
+.obs-item{margin-bottom:8px;font-size:12px;color:var(--text2)}
+.obs-item strong{color:var(--accent2);font-size:10px;text-transform:uppercase;letter-spacing:0.6px;display:inline-block;min-width:90px}
 
-/* ══════════════════════════════════════════════════
-   FORM PAGE
-══════════════════════════════════════════════════ */
+/* Form Page */
 #page-form{padding:0 24px 60px;max-width:860px;margin:0 auto}
 .form-header{padding:28px 0 24px}
 .form-title{font-size:22px;font-weight:700;letter-spacing:-0.5px}
@@ -322,10 +295,9 @@ nav{
   transition:border-color 0.2s,background 0.2s
 }
 .form-input:focus,.form-textarea:focus,.form-select:focus{
-  border-color:rgba(59,130,246,0.5);background:var(--surface3)
+  border-color:rgba(45,212,191,0.5);background:var(--surface3)
 }
 .form-textarea{resize:vertical;min-height:70px;line-height:1.5}
-.form-select option{background:var(--surface2)}
 
 .semaforo-group{display:flex;gap:8px}
 .sem-radio{display:none}
@@ -336,7 +308,7 @@ nav{
   transition:all 0.15s;background:var(--surface2);user-select:none
 }
 .sem-radio:checked+.sem-radio-lbl{border-color:transparent}
-.sem-radio.g:checked+.sem-radio-lbl{background:rgba(16,185,129,0.15);color:#34d399;border-color:rgba(16,185,129,0.3)}
+.sem-radio.g:checked+.sem-radio-lbl{background:rgba(45,212,191,0.15);color:#5eead4;border-color:rgba(45,212,191,0.3)}
 .sem-radio.y:checked+.sem-radio-lbl{background:rgba(245,158,11,0.15);color:#fbbf24;border-color:rgba(245,158,11,0.3)}
 .sem-radio.r:checked+.sem-radio-lbl{background:rgba(239,68,68,0.15);color:#f87171;border-color:rgba(239,68,68,0.3)}
 
@@ -344,20 +316,15 @@ nav{
   border:1px solid var(--border);border-radius:12px;padding:14px;
   margin-bottom:10px;transition:border-color 0.2s
 }
-
 .form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;flex-wrap:wrap}
 
-/* ── EMPTY STATE ── */
-.empty-state{
-  text-align:center;padding:60px 20px;color:var(--text3)
-}
+.empty-state{text-align:center;padding:60px 20px;color:var(--text3)}
 .empty-icon{font-size:40px;margin-bottom:12px;opacity:0.3}
 .empty-text{font-size:14px}
 
-/* ── TOAST ── */
 .toast{
   position:fixed;bottom:24px;right:24px;z-index:999;
-  background:var(--surface);border:1px solid rgba(16,185,129,0.3);
+  background:var(--surface);border:1px solid rgba(45,212,191,0.3);
   border-radius:12px;padding:14px 18px;
   display:flex;align-items:center;gap:10px;
   box-shadow:0 8px 32px rgba(0,0,0,0.4);
@@ -366,12 +333,11 @@ nav{
   pointer-events:none
 }
 .toast.show{transform:translateY(0);opacity:1}
-.toast-icon{color:var(--green);font-size:16px}
+.toast-icon{color:var(--accent);font-size:16px}
 .toast-text{font-size:13px;font-weight:500}
 
-/* ── LOADING OVERLAY ── */
 #loadingOverlay{
-  position:fixed;inset:0;background:rgba(7,9,15,0.9);
+  position:fixed;inset:0;background:rgba(10,26,26,0.9);
   display:none;justify-content:center;align-items:center;z-index:200;
   flex-direction:column;gap:14px
 }
@@ -383,7 +349,6 @@ nav{
 @keyframes spin{to{transform:rotate(360deg)}}
 #loadingOverlay p{font-size:14px;color:var(--text2)}
 
-/* ── RESPONSIVE ── */
 @media(max-width:700px){
   .cards-grid{grid-template-columns:1fr;padding:0 12px 40px}
   .stats-bar{margin:0 12px 20px;flex-wrap:wrap}
@@ -400,21 +365,17 @@ nav{
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo">
     <div class="nav-logo-icon"><i class="fas fa-dumbbell" style="color:#fff;font-size:13px"></i></div>
     <div class="nav-logo-text">MOVE <span>Audit</span></div>
   </div>
   <div class="nav-right">
-    <button class="btn-back" id="btnBack" onclick="goBack()">
-      <i class="fas fa-arrow-left" style="font-size:10px"></i> Volver
-    </button>
+    <button class="btn-back" id="btnBack" onclick="goBack()"><i class="fas fa-arrow-left" style="font-size:10px"></i> Volver</button>
     <span class="nav-badge"><i class="fas fa-robot" style="margin-right:4px"></i>IA Activa</span>
   </div>
 </nav>
 
-<!-- PAGES -->
 <div id="page-grid">
   <div class="grid-header">
     <div>
@@ -425,7 +386,6 @@ nav{
       <button class="btn-secondary" onclick="showAddTrainer()"><i class="fas fa-user-plus"></i> Nuevo entrenador</button>
     </div>
   </div>
-
   <div class="stats-bar" id="statsBar"></div>
   <div class="cards-grid" id="cardsGrid"></div>
 </div>
@@ -443,7 +403,7 @@ nav{
       <div class="chart-canvas-wrap" style="height:180px"><canvas id="barChart"></canvas></div>
     </div>
   </div>
-  <div class="audits-section" style="margin-top:20px">
+  <div class="audits-section">
     <div class="section-header">
       <div class="section-title">Planes Auditados <span id="auditCount"></span></div>
       <button class="btn-primary" id="btnNewAudit"><i class="fas fa-plus"></i> Nueva Auditoría</button>
@@ -463,7 +423,7 @@ nav{
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Nombre del Entrenador</label>
-        <input class="form-input" id="fTrainer" placeholder="Ej: Laura Méndez" readonly style="opacity:0.6">
+        <input class="form-input" id="fTrainer" readonly style="opacity:0.6">
       </div>
       <div class="form-group">
         <label class="form-label">Nombre del Socio *</label>
@@ -472,21 +432,16 @@ nav{
     </div>
   </div>
 
-  <!-- Secciones semáforo -->
   <div class="form-block">
     <div class="form-block-title"><i class="fas fa-traffic-light"></i> Evaluación por Sección</div>
     <div id="formSections"></div>
   </div>
 
-  <!-- Hallazgos -->
   <div class="form-block">
     <div class="form-block-title"><i class="fas fa-magnifying-glass"></i> Hallazgos Técnicos</div>
-    <div class="form-group">
-      <textarea class="form-textarea" id="fHallazgos" rows="3" placeholder="Describir hallazgos técnicos observados durante la auditoría..."></textarea>
-    </div>
+    <textarea class="form-textarea" id="fHallazgos" rows="3" placeholder="Describir hallazgos técnicos observados durante la auditoría..."></textarea>
   </div>
 
-  <!-- Plan de acción -->
   <div class="form-block">
     <div class="form-block-title"><i class="fas fa-list-check"></i> Plan de Acción</div>
     <div class="form-group" style="margin-bottom:8px">
@@ -509,17 +464,10 @@ nav{
   </div>
 </div>
 
-<!-- Loading -->
 <div id="loadingOverlay"><div class="spinner"></div><p>Guardando auditoría…</p></div>
+<div class="toast" id="toast"><i class="fas fa-circle-check toast-icon"></i><span class="toast-text" id="toastText">Auditoría guardada</span></div>
 
-<!-- Toast -->
-<div class="toast" id="toast">
-  <i class="fas fa-circle-check toast-icon"></i>
-  <span class="toast-text" id="toastText">Auditoría guardada correctamente</span>
-</div>
-
-<!-- Add Trainer Modal -->
-<div id="trainerModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:150;display:none;justify-content:center;align-items:center">
+<div id="trainerModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:150;justify-content:center;align-items:center">
   <div style="background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:28px;width:360px;max-width:90vw">
     <div style="font-size:16px;font-weight:700;margin-bottom:16px">Agregar Entrenador</div>
     <div class="form-group" style="margin-bottom:12px">
@@ -538,9 +486,6 @@ nav{
 </div>
 
 <script>
-// ═══════════════════════════════════════════════
-//  DATA STORE
-// ═══════════════════════════════════════════════
 const SECTIONS = [
   { key:'gestion',    label:'Gestión y Vigencia',      icon:'fa-calendar-check' },
   { key:'diagnostico',label:'Diagnóstico y Evolución', icon:'fa-chart-line' },
@@ -548,16 +493,10 @@ const SECTIONS = [
   { key:'custom',     label:'Customización',           icon:'fa-user-check' }
 ];
 
-const COLORS = ['#6366f1','#3b82f6','#06b6d4','#10b981','#f59e0b','#f97316','#ec4899'];
-const AVATARS_BG = ['#1d4ed8','#7c3aed','#0e7490','#065f46','#92400e','#9d174d'];
-
-function getInitials(name){ return name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase() }
-function getBg(name){ const i=name.charCodeAt(0)%AVATARS_BG.length; return AVATARS_BG[i] }
 function semToNum(s){ if(s==='verde') return 100; if(s==='amarillo') return 60; return 20 }
 function semToClass(s){ if(s==='verde') return 'g'; if(s==='amarillo') return 'y'; return 'r' }
 function semLabel(s){ if(s==='verde') return '🟢 Verde'; if(s==='amarillo') return '🟡 Amarillo'; return '🔴 Rojo' }
 
-// Demo data
 let store = {
   trainers: [
     {
@@ -574,7 +513,7 @@ let store = {
           id:'a2', socio:'Ana Suárez', date:'2025-04-10',
           semaforos:{gestion:'amarillo',diagnostico:'verde',metodologia:'verde',custom:'verde'},
           hallazgos:'CRM con tareas atrasadas. Metodología correcta.',
-          planes:['Actualizar tareas en CRM','Seguimiento semanal de adherencia','Nada por ahora en metodología'],
+          planes:['Actualizar tareas en CRM','Seguimiento semanal de adherencia','Revisar progresión mensual'],
           obs:{gestion:'2 tareas de seguimiento pendientes.',diagnostico:'Reevaluación realizada correctamente.',metodologia:'Estructura de sesión ejemplar.',custom:'Adaptaciones bien documentadas.'}
         }
       ]
@@ -613,386 +552,130 @@ let store = {
   ]
 };
 
-// ═══════════════════════════════════════════════
-//  STATE
-// ═══════════════════════════════════════════════
 let currentPage = 'grid';
 let currentTrainerId = null;
-let donutChartInst = null;
-let barChartInst = null;
+let donutChartInst = null, barChartInst = null;
 
-// ═══════════════════════════════════════════════
-//  TRAINER SCORE CALC
-// ═══════════════════════════════════════════════
 function calcTrainerStats(trainer){
   const audits = trainer.audits;
   if(!audits.length) return {score:0,verde:0,amarillo:0,rojo:0,planScore:0,evalScore:0,reevalScore:0,metScore:0};
-  
-  let verdeCnt=0,amarilloCnt=0,rojoCnt=0,total=0;
-  let metSum=0;
+  let verdeCnt=0,amarilloCnt=0,rojoCnt=0,total=0,metSum=0;
   audits.forEach(a=>{
-    Object.values(a.semaforos).forEach(s=>{
-      total++;
-      if(s==='verde') verdeCnt++;
-      else if(s==='amarillo') amarilloCnt++;
-      else rojoCnt++;
-    });
+    Object.values(a.semaforos).forEach(s=>{ total++; if(s==='verde') verdeCnt++; else if(s==='amarillo') amarilloCnt++; else rojoCnt++; });
     metSum += semToNum(a.semaforos.metodologia);
   });
-  
   const planScore = Math.round(audits.filter(a=>a.semaforos.gestion==='verde').length/audits.length*100);
   const evalScore = Math.round(audits.filter(a=>a.semaforos.diagnostico!=='rojo').length/audits.length*100);
   const reevalScore = Math.round(audits.filter(a=>a.semaforos.diagnostico==='verde').length/audits.length*100);
   const metScore = Math.round(metSum/audits.length);
   const score = Math.round((verdeCnt/total)*100);
-  
   return {score,verde:verdeCnt,amarillo:amarilloCnt,rojo:rojoCnt,planScore,evalScore,reevalScore,metScore,total};
 }
 
-function getBadgeClass(score){
-  if(score>=80) return 'badge-green';
-  if(score>=50) return 'badge-yellow';
-  return 'badge-red';
-}
-
-function getColorVal(v){ if(v==='verde') return '#10b981'; if(v==='amarillo') return '#f59e0b'; return '#ef4444' }
-
-// ═══════════════════════════════════════════════
-//  RENDER GRID
-// ═══════════════════════════════════════════════
 function renderGrid(){
-  // Stats bar
   const totalTrainers = store.trainers.length;
   const totalSocios = store.trainers.reduce((s,t)=>s+t.sociosActivos,0);
   const totalAudits = store.trainers.reduce((s,t)=>s+t.audits.length,0);
-  const avgScore = store.trainers.length
-    ? Math.round(store.trainers.reduce((s,t)=>s+calcTrainerStats(t).score,0)/store.trainers.length)
-    : 0;
+  const avgScore = store.trainers.length ? Math.round(store.trainers.reduce((s,t)=>s+calcTrainerStats(t).score,0)/store.trainers.length) : 0;
   
   document.getElementById('statsBar').innerHTML = `
-    <div class="stat-item">
-      <div class="stat-num" style="color:#60a5fa">${totalTrainers}</div>
-      <div class="stat-label">Entrenadores</div>
-      <div class="stat-sub">activos</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num" style="color:#34d399">${totalSocios}</div>
-      <div class="stat-label">Socios</div>
-      <div class="stat-sub">bajo supervisión</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num" style="color:#a78bfa">${totalAudits}</div>
-      <div class="stat-label">Auditorías</div>
-      <div class="stat-sub">registradas</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num" style="color:${avgScore>=80?'#34d399':avgScore>=50?'#fbbf24':'#f87171'}">${avgScore}%</div>
-      <div class="stat-label">Score Promedio</div>
-      <div class="stat-sub">cumplimiento</div>
-    </div>
+    <div class="stat-item"><div class="stat-num" style="color:#5eead4">${totalTrainers}</div><div class="stat-label">Entrenadores</div><div class="stat-sub">activos</div></div>
+    <div class="stat-item"><div class="stat-num" style="color:#5eead4">${totalSocios}</div><div class="stat-label">Socios</div><div class="stat-sub">bajo supervisión</div></div>
+    <div class="stat-item"><div class="stat-num" style="color:#5eead4">${totalAudits}</div><div class="stat-label">Auditorías</div><div class="stat-sub">registradas</div></div>
+    <div class="stat-item"><div class="stat-num" style="color:${avgScore>=80?'#5eead4':avgScore>=50?'#fbbf24':'#f87171'}">${avgScore}%</div><div class="stat-label">Score Promedio</div><div class="stat-sub">cumplimiento</div></div>
   `;
-
+  
   const grid = document.getElementById('cardsGrid');
   grid.innerHTML = '';
-  
   if(!store.trainers.length){
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
-      <div class="empty-icon"><i class="fas fa-user-slash"></i></div>
-      <div class="empty-text">No hay entrenadores registrados.<br>Haz click en "Nuevo entrenador" para comenzar.</div>
-    </div>`;
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon"><i class="fas fa-user-slash"></i></div><div class="empty-text">No hay entrenadores registrados.</div></div>`;
     return;
   }
   
   store.trainers.forEach(trainer=>{
     const stats = calcTrainerStats(trainer);
+    const badgeClass = stats.score>=80?'badge-green':stats.score>=50?'badge-yellow':'badge-red';
+    const badgeText = stats.score>=80?'Óptimo':stats.score>=50?'A mejorar':'Crítico';
+    const miniId = `mini_${trainer.id}`;
     const card = document.createElement('div');
     card.className = 'trainer-card';
     card.onclick = ()=>showDetail(trainer.id);
-    
-    const badgeClass = getBadgeClass(stats.score);
-    const badgeText = stats.score>=80?'Óptimo':stats.score>=50?'A mejorar':'Crítico';
-    const scoreColor = stats.score>=80?'var(--green)':stats.score>=50?'var(--yellow)':'var(--red)';
-    
-    const miniId = `mini_${trainer.id}`;
-    
     card.innerHTML = `
-      <div class="card-top">
-        <div style="display:flex;align-items:center;gap:12px">
-          <div class="card-avatar" style="background:${getBg(trainer.name)}">${getInitials(trainer.name)}</div>
-          <div>
-            <div class="card-name">${trainer.name}</div>
-            <div class="card-meta">
-              <span class="card-dot"></span>
-              ${trainer.sociosActivos} socios · ${trainer.audits.length} auditorías
-            </div>
-          </div>
-        </div>
-        <span class="card-badge ${badgeClass}">${badgeText}</span>
-      </div>
-      
-      <div class="card-kpis">
-        <div class="kpi-item">
-          <div class="kpi-val" style="color:#60a5fa">${stats.planScore}%</div>
-          <div class="kpi-lbl">Planificación</div>
-          <div class="progress-bar"><div class="progress-fill" style="width:${stats.planScore}%;background:#3b82f6"></div></div>
-        </div>
-        <div class="kpi-item">
-          <div class="kpi-val" style="color:#34d399">${stats.evalScore}%</div>
-          <div class="kpi-lbl">Evaluaciones</div>
-          <div class="progress-bar"><div class="progress-fill" style="width:${stats.evalScore}%;background:#10b981"></div></div>
-        </div>
-        <div class="kpi-item">
-          <div class="kpi-val" style="color:#a78bfa">${stats.reevalScore}%</div>
-          <div class="kpi-lbl">Reevaluaciones</div>
-          <div class="progress-bar"><div class="progress-fill" style="width:${stats.reevalScore}%;background:#8b5cf6"></div></div>
-        </div>
-        <div class="kpi-item">
-          <div class="kpi-val" style="color:#fbbf24">${stats.metScore}%</div>
-          <div class="kpi-lbl">Metodología</div>
-          <div class="progress-bar"><div class="progress-fill" style="width:${stats.metScore}%;background:#f59e0b"></div></div>
-        </div>
-      </div>
-      
-      <div class="mini-chart-wrap">
-        <canvas class="mini-chart-canvas" id="${miniId}"></canvas>
-        <div class="mini-legend">
-          <div class="legend-row"><span class="legend-dot" style="background:#10b981"></span><span class="legend-label">Verde</span><span class="legend-val" style="color:#34d399">${stats.verde}</span></div>
-          <div class="legend-row"><span class="legend-dot" style="background:#f59e0b"></span><span class="legend-label">Amarillo</span><span class="legend-val" style="color:#fbbf24">${stats.amarillo}</span></div>
-          <div class="legend-row"><span class="legend-dot" style="background:#ef4444"></span><span class="legend-label">Rojo</span><span class="legend-val" style="color:#f87171">${stats.rojo}</span></div>
-        </div>
-      </div>
-      
-      <div class="card-footer">
-        <span class="card-footer-left">Score global</span>
-        <div style="display:flex;align-items:center;gap:10px">
-          <span style="font-size:18px;font-weight:700;font-family:var(--mono);color:${scoreColor}">${stats.score}%</span>
-          <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </div>
-      </div>
+      <div class="card-top"><div style="display:flex;align-items:center;gap:12px"><div class="card-avatar" style="background:#0d9488">${trainer.name.split(' ').map(w=>w[0]).join('')}</div><div><div class="card-name">${trainer.name}</div><div class="card-meta"><span class="card-dot"></span>${trainer.sociosActivos} socios · ${trainer.audits.length} auditorías</div></div></div><span class="card-badge ${badgeClass}">${badgeText}</span></div>
+      <div class="card-kpis"><div class="kpi-item"><div class="kpi-val" style="color:#5eead4">${stats.planScore}%</div><div class="kpi-lbl">Planificación</div><div class="progress-bar"><div class="progress-fill" style="width:${stats.planScore}%;background:#2dd4bf"></div></div></div><div class="kpi-item"><div class="kpi-val" style="color:#5eead4">${stats.evalScore}%</div><div class="kpi-lbl">Evaluaciones</div><div class="progress-bar"><div class="progress-fill" style="width:${stats.evalScore}%;background:#2dd4bf"></div></div></div></div>
+      <div class="mini-chart-wrap"><canvas class="mini-chart-canvas" id="${miniId}"></canvas><div class="mini-legend"><div class="legend-row"><span class="legend-dot" style="background:#2dd4bf"></span><span class="legend-label">Verde</span><span class="legend-val">${stats.verde}</span></div><div class="legend-row"><span class="legend-dot" style="background:#f59e0b"></span><span class="legend-label">Amarillo</span><span class="legend-val">${stats.amarillo}</span></div><div class="legend-row"><span class="legend-dot" style="background:#ef4444"></span><span class="legend-label">Rojo</span><span class="legend-val">${stats.rojo}</span></div></div></div>
+      <div class="card-footer"><span class="card-footer-left">Score global</span><div style="display:flex;align-items:center;gap:10px"><span style="font-size:18px;font-weight:700;font-family:var(--mono);color:${stats.score>=80?'#5eead4':stats.score>=50?'#fbbf24':'#f87171'}">${stats.score}%</span><div class="card-arrow"><i class="fas fa-arrow-right"></i></div></div></div>
     `;
-    
     grid.appendChild(card);
-    
-    // Mini donut
     setTimeout(()=>{
       const ctx = document.getElementById(miniId);
-      if(!ctx) return;
-      const t = stats.verde+stats.amarillo+stats.rojo;
-      new Chart(ctx,{
-        type:'doughnut',
-        data:{
-          datasets:[{
-            data:t?[stats.verde,stats.amarillo,stats.rojo]:[1,0,0],
-            backgroundColor:['#10b981','#f59e0b','#ef4444'],
-            borderWidth:0,hoverBorderWidth:0
-          }]
-        },
-        options:{
-          responsive:false,cutout:'72%',
-          plugins:{legend:{display:false},tooltip:{enabled:false}},
-          animation:{duration:600}
-        }
-      });
+      if(ctx) new Chart(ctx,{type:'doughnut',data:{datasets:[{data:[stats.verde||1,stats.amarillo,stats.rojo],backgroundColor:['#2dd4bf','#f59e0b','#ef4444'],borderWidth:0}]},options:{responsive:false,cutout:'72%',plugins:{legend:{display:false},tooltip:{enabled:false}}}});
     },50);
   });
 }
 
-// ═══════════════════════════════════════════════
-//  SHOW DETAIL
-// ═══════════════════════════════════════════════
 function showDetail(trainerId){
   currentTrainerId = trainerId;
   const trainer = store.trainers.find(t=>t.id===trainerId);
   if(!trainer) return;
   const stats = calcTrainerStats(trainer);
-  
-  // Destroy old charts
   if(donutChartInst){ donutChartInst.destroy(); donutChartInst=null; }
   if(barChartInst){ barChartInst.destroy(); barChartInst=null; }
   
-  // Header
-  const scoreColor = stats.score>=80?'var(--green)':stats.score>=50?'var(--yellow)':'var(--red)';
   document.getElementById('detailHeader').innerHTML = `
-    <div class="detail-avatar" style="background:${getBg(trainer.name)}">${getInitials(trainer.name)}</div>
-    <div>
-      <div class="detail-name">${trainer.name}</div>
-      <div class="detail-sub">
-        <i class="fas fa-users" style="font-size:11px"></i> ${trainer.sociosActivos} socios activos
-        <span style="color:var(--surface3)">·</span>
-        <i class="fas fa-clipboard-list" style="font-size:11px"></i> ${trainer.audits.length} auditorías
-      </div>
-    </div>
-    <div class="detail-score">
-      <div class="detail-score-num" style="color:${scoreColor}">${stats.score}%</div>
-      <div class="detail-score-lbl">Score Global</div>
-    </div>
+    <div class="detail-avatar" style="background:#0d9488">${trainer.name.split(' ').map(w=>w[0]).join('')}</div>
+    <div><div class="detail-name">${trainer.name}</div><div class="detail-sub"><i class="fas fa-users" style="font-size:11px"></i> ${trainer.sociosActivos} socios activos · ${trainer.audits.length} auditorías</div></div>
+    <div class="detail-score"><div class="detail-score-num" style="color:${stats.score>=80?'#5eead4':stats.score>=50?'#fbbf24':'#f87171'}">${stats.score}%</div><div class="detail-score-lbl">Score Global</div></div>
   `;
   
-  // KPIs
-  const kpis = [
-    {icon:'fa-users',color:'#60a5fa',val:trainer.sociosActivos,lbl:'Socios Activos',accent:'#1d4ed8'},
-    {icon:'fa-calendar-check',color:'#34d399',val:stats.planScore+'%',lbl:'Planes al Día',accent:'#065f46'},
-    {icon:'fa-file-medical',color:'#a78bfa',val:stats.evalScore+'%',lbl:'Evaluaciones',accent:'#4c1d95'},
-    {icon:'fa-rotate',color:'#fbbf24',val:stats.reevalScore+'%',lbl:'Reevaluaciones',accent:'#78350f'},
-    {icon:'fa-dumbbell',color:'#f97316',val:stats.metScore+'%',lbl:'Score Metodológico',accent:'#7c2d12'},
-  ];
-  document.getElementById('detailKpis').innerHTML = kpis.map(k=>`
-    <div class="kpi-card">
-      <i class="fas ${k.icon} kpi-card-icon" style="color:${k.color}"></i>
-      <div class="kpi-card-num" style="color:${k.color}">${k.val}</div>
-      <div class="kpi-card-lbl">${k.lbl}</div>
-      <div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:${k.color};opacity:0.3;border-radius:0 0 12px 12px"></div>
-    </div>
-  `).join('');
+  document.getElementById('detailKpis').innerHTML = `
+    <div class="kpi-card"><i class="fas fa-users kpi-card-icon" style="color:#5eead4"></i><div class="kpi-card-num" style="color:#5eead4">${trainer.sociosActivos}</div><div class="kpi-card-lbl">Socios Activos</div></div>
+    <div class="kpi-card"><i class="fas fa-calendar-check kpi-card-icon" style="color:#5eead4"></i><div class="kpi-card-num" style="color:#5eead4">${stats.planScore}%</div><div class="kpi-card-lbl">Planes al Día</div></div>
+    <div class="kpi-card"><i class="fas fa-file-medical kpi-card-icon" style="color:#5eead4"></i><div class="kpi-card-num" style="color:#5eead4">${stats.evalScore}%</div><div class="kpi-card-lbl">Evaluaciones</div></div>
+    <div class="kpi-card"><i class="fas fa-rotate kpi-card-icon" style="color:#5eead4"></i><div class="kpi-card-num" style="color:#5eead4">${stats.reevalScore}%</div><div class="kpi-card-lbl">Reevaluaciones</div></div>
+  `;
   
-  // Render audits
   renderAudits(trainer);
-  
-  // Switch page
   navigate('detail');
   
-  // Charts after DOM
   setTimeout(()=>{
-    // Donut
     const dCtx = document.getElementById('donutChart');
-    if(dCtx){
-      donutChartInst = new Chart(dCtx,{
-        type:'doughnut',
-        data:{
-          labels:['Verde','Amarillo','Rojo'],
-          datasets:[{
-            data:[stats.verde,stats.amarillo,stats.rojo],
-            backgroundColor:['#10b981','#f59e0b','#ef4444'],
-            borderWidth:2,borderColor:'#0d1117',hoverBorderWidth:0
-          }]
-        },
-        options:{
-          responsive:true,cutout:'65%',
-          plugins:{
-            legend:{
-              position:'bottom',
-              labels:{color:'#94a3b8',font:{family:'DM Mono',size:11},padding:12,boxWidth:10}
-            },
-            tooltip:{
-              callbacks:{label:ctx=>`${ctx.label}: ${ctx.raw} secciones`}
-            }
-          }
-        }
-      });
-    }
-    
-    // Bar
+    if(dCtx) donutChartInst = new Chart(dCtx,{type:'doughnut',data:{labels:['Verde','Amarillo','Rojo'],datasets:[{data:[stats.verde,stats.amarillo,stats.rojo],backgroundColor:['#2dd4bf','#f59e0b','#ef4444'],borderWidth:2,borderColor:'#0f2a2a'}]},options:{responsive:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{family:'DM Mono',size:11}}}}}});
     const bCtx = document.getElementById('barChart');
     if(bCtx){
-      const labels = SECTIONS.map(s=>s.label.split(' ')[0]);
-      const vals = SECTIONS.map(sec=>{
-        if(!trainer.audits.length) return 0;
-        const sum = trainer.audits.reduce((s,a)=>s+semToNum(a.semaforos[sec.key]),0);
-        return Math.round(sum/trainer.audits.length);
-      });
-      const barColors = vals.map(v=>v>=80?'#10b981':v>=50?'#f59e0b':'#ef4444');
-      
-      barChartInst = new Chart(bCtx,{
-        type:'bar',
-        data:{
-          labels,
-          datasets:[{
-            label:'Score',data:vals,
-            backgroundColor:barColors.map(c=>c+'33'),
-            borderColor:barColors,
-            borderWidth:2,borderRadius:8,
-            hoverBackgroundColor:barColors.map(c=>c+'66')
-          }]
-        },
-        options:{
-          responsive:true,maintainAspectRatio:false,
-          scales:{
-            y:{
-              beginAtZero:true,max:100,
-              grid:{color:'rgba(255,255,255,0.04)'},
-              ticks:{color:'#475569',font:{family:'DM Mono',size:10},callback:v=>v+'%'}
-            },
-            x:{grid:{display:false},ticks:{color:'#94a3b8',font:{family:'Space Grotesk',size:11}}}
-          },
-          plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`Score: ${ctx.raw}%`}}}
-        }
-      });
+      const vals = SECTIONS.map(sec=>{ if(!trainer.audits.length) return 0; return Math.round(trainer.audits.reduce((s,a)=>s+semToNum(a.semaforos[sec.key]),0)/trainer.audits.length); });
+      barChartInst = new Chart(bCtx,{type:'bar',data:{labels:SECTIONS.map(s=>s.label.split(' ')[0]),datasets:[{label:'Score',data:vals,backgroundColor:vals.map(v=>v>=80?'#2dd4bf33':v>=50?'#f59e0b33':'#ef444433'),borderColor:vals.map(v=>v>=80?'#2dd4bf':v>=50?'#f59e0b':'#ef4444'),borderWidth:2,borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true,max:100,grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#475569',callback:v=>v+'%'}},x:{grid:{display:false},ticks:{color:'#94a3b8'}}},plugins:{legend:{display:false}}}});
     }
   },100);
 }
 
-// ═══════════════════════════════════════════════
-//  RENDER AUDITS
-// ═══════════════════════════════════════════════
 function renderAudits(trainer){
   document.getElementById('auditCount').textContent = `(${trainer.audits.length})`;
   document.getElementById('btnNewAudit').onclick = ()=>showForm(trainer.id);
-  
   const list = document.getElementById('auditList');
   if(!trainer.audits.length){
-    list.innerHTML = `<div class="empty-state">
-      <div class="empty-icon"><i class="fas fa-clipboard"></i></div>
-      <div class="empty-text">No hay auditorías registradas.<br>Haz click en "Nueva Auditoría" para comenzar.</div>
-    </div>`;
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fas fa-clipboard"></i></div><div class="empty-text">No hay auditorías registradas.<br>Haz click en "Nueva Auditoría" para comenzar.</div></div>`;
     return;
   }
   
   list.innerHTML = trainer.audits.map(audit=>{
-    const semChips = SECTIONS.map(s=>`
-      <span class="sem-chip ${semToClass(audit.semaforos[s.key])}" title="${s.label}">${s.label.split(' ')[0]}</span>
-    `).join('');
-    
-    const formattedDate = audit.date ? new Date(audit.date+'T00:00:00').toLocaleDateString('es-AR',{day:'2-digit',month:'short',year:'numeric'}) : '';
-    
-    const semFull = SECTIONS.map(s=>`
-      <div class="sem-full">
-        <span style="font-size:12px">${s.key==='gestion'?'🟢':s.key==='diagnostico'?'📊':s.key==='metodologia'?'🏋️':'👤'}</span>
-        <span class="sem-section-name">${s.label.split(' ')[0]}</span>
-        <span class="sem-chip ${semToClass(audit.semaforos[s.key])}">${semLabel(audit.semaforos[s.key])}</span>
-      </div>
-    `).join('');
-    
-    const obsItems = SECTIONS.map(s=>
-      audit.obs[s.key] ? `<div style="margin-bottom:4px"><span style="color:var(--text3);font-size:10px;text-transform:uppercase;letter-spacing:0.6px">${s.label.split(' ')[0]}:</span> ${audit.obs[s.key]}</div>` : ''
-    ).join('');
-    
-    const planesItems = [audit.planes[0],audit.planes[1],audit.planes[2]]
-      .filter(Boolean).map(p=>`<li>${p}</li>`).join('');
-    
+    const semChips = SECTIONS.map(s=>`<span class="sem-chip ${semToClass(audit.semaforos[s.key])}" title="${s.label}">${s.label.split(' ')[0]}</span>`).join('');
+    const semFull = SECTIONS.map(s=>`<div class="sem-full"><span style="font-size:12px">${s.key==='gestion'?'📋':s.key==='diagnostico'?'📊':s.key==='metodologia'?'🏋️':'🎯'}</span><span class="sem-section-name">${s.label.split(' ')[0]}</span><span class="sem-chip ${semToClass(audit.semaforos[s.key])}">${semLabel(audit.semaforos[s.key])}</span></div>`).join('');
+    const obsItems = SECTIONS.map(s=>audit.obs[s.key]?`<div class="obs-item"><strong>${s.label.split(' ')[0]}:</strong> ${audit.obs[s.key]}</div>`:'').join('');
+    const planesItems = audit.planes.filter(Boolean).map(p=>`<li>${p}</li>`).join('');
     return `
     <div class="audit-item" onclick="toggleAudit('${audit.id}')">
-      <div class="audit-item-top">
-        <div>
-          <div class="audit-socio"><i class="fas fa-user" style="font-size:11px;color:var(--text3);margin-right:5px"></i>${audit.socio}</div>
-          <div class="audit-date">${formattedDate}</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <div class="audit-semaforos">${semChips}</div>
-          <i class="fas fa-chevron-down" id="chev_${audit.id}" style="color:var(--text3);font-size:11px;transition:transform 0.2s"></i>
-        </div>
-      </div>
-      ${audit.hallazgos ? `<div class="audit-obs"><i class="fas fa-circle-info" style="color:var(--accent);margin-right:4px;font-size:10px"></i>${audit.hallazgos.slice(0,120)}${audit.hallazgos.length>120?'…':''}</div>` : ''}
-      
+      <div class="audit-item-top"><div><div class="audit-socio"><i class="fas fa-user" style="font-size:11px;color:var(--text3);margin-right:5px"></i>${audit.socio}</div><div class="audit-date">${audit.date}</div></div><div style="display:flex;align-items:center;gap:8px"><div class="audit-semaforos">${semChips}</div><i class="fas fa-chevron-down" id="chev_${audit.id}" style="color:var(--text3);font-size:11px;transition:transform 0.2s"></i></div></div>
+      ${audit.hallazgos?`<div class="audit-obs"><i class="fas fa-circle-info" style="color:var(--accent);margin-right:4px;font-size:10px"></i>${audit.hallazgos.slice(0,100)}${audit.hallazgos.length>100?'…':''}</div>`:''}
       <div class="audit-expanded" id="exp_${audit.id}">
         <div class="sem-full-row">${semFull}</div>
         <div class="detail-grid">
-          <div class="detail-block">
-            <div class="detail-block-title"><i class="fas fa-eye" style="margin-right:4px"></i>Observaciones</div>
-            <div class="detail-block-content">${obsItems||'Sin observaciones registradas.'}</div>
-          </div>
-          <div class="detail-block">
-            <div class="detail-block-title"><i class="fas fa-list-check" style="margin-right:4px"></i>Plan de Acción</div>
-            <ul class="plan-list">${planesItems||'<li>Sin plan registrado.</li>'}</ul>
-          </div>
+          <div class="detail-block"><div class="detail-block-title"><i class="fas fa-eye"></i> Observaciones</div><div class="detail-block-content">${obsItems||'Sin observaciones registradas.'}</div></div>
+          <div class="detail-block"><div class="detail-block-title"><i class="fas fa-list-check"></i> Plan de Acción</div><ul class="plan-list">${planesItems||'<li>Sin plan registrado.</li>'}</ul></div>
         </div>
-        ${audit.hallazgos?`
-        <div class="detail-block" style="margin-top:0">
-          <div class="detail-block-title"><i class="fas fa-magnifying-glass" style="margin-right:4px"></i>Hallazgos Técnicos</div>
-          <div class="detail-block-content">${audit.hallazgos}</div>
-        </div>`:''} 
+        ${audit.hallazgos?`<div class="detail-block" style="margin-top:8px"><div class="detail-block-title"><i class="fas fa-magnifying-glass"></i> Hallazgos Técnicos</div><div class="detail-block-content">${audit.hallazgos}</div></div>`:''}
       </div>
-    </div>
-    `;
+    </div>`;
   }).join('');
 }
 
@@ -1000,25 +683,13 @@ function toggleAudit(id){
   const exp = document.getElementById('exp_'+id);
   const chev = document.getElementById('chev_'+id);
   if(!exp) return;
-  const isOpen = exp.classList.contains('open');
   exp.classList.toggle('open');
-  if(chev) chev.style.transform = isOpen?'':'rotate(180deg)';
+  if(chev) chev.style.transform = exp.classList.contains('open')?'rotate(180deg)':'';
 }
-
-// ═══════════════════════════════════════════════
-//  FORM
-// ═══════════════════════════════════════════════
-const sectionDefaults = ()=>{
-  const obj={};
-  SECTIONS.forEach(s=>obj[s.key]='verde');
-  return obj;
-};
 
 function showForm(trainerId){
   currentTrainerId = trainerId;
   const trainer = store.trainers.find(t=>t.id===trainerId);
-  if(!trainer) return;
-  
   document.getElementById('fTrainer').value = trainer.name;
   document.getElementById('fSocio').value = '';
   document.getElementById('fHallazgos').value = '';
@@ -1026,32 +697,20 @@ function showForm(trainerId){
   document.getElementById('fPlan2').value = '';
   document.getElementById('fPlan3').value = '';
   document.getElementById('formTitle').textContent = `Nueva Auditoría · ${trainer.name}`;
-  document.getElementById('formSub').textContent = 'Completa los campos para registrar la auditoría del socio';
   
-  // Render section semáforos
   const container = document.getElementById('formSections');
   container.innerHTML = SECTIONS.map(sec=>`
     <div class="section-form-block">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px">
-        <div style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px">
-          <i class="fas ${sec.icon}" style="color:var(--accent);opacity:0.7"></i>${sec.label}
-        </div>
+        <div style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px"><i class="fas ${sec.icon}" style="color:var(--accent);opacity:0.7"></i>${sec.label}</div>
         <div class="semaforo-group">
-          <input type="radio" class="sem-radio g" name="sem_${sec.key}" id="sem_${sec.key}_verde" value="verde" checked>
-          <label class="sem-radio-lbl" for="sem_${sec.key}_verde">🟢 Verde</label>
-          <input type="radio" class="sem-radio y" name="sem_${sec.key}" id="sem_${sec.key}_amarillo" value="amarillo">
-          <label class="sem-radio-lbl" for="sem_${sec.key}_amarillo">🟡 Amarillo</label>
-          <input type="radio" class="sem-radio r" name="sem_${sec.key}" id="sem_${sec.key}_rojo" value="rojo">
-          <label class="sem-radio-lbl" for="sem_${sec.key}_rojo">🔴 Rojo</label>
+          <input type="radio" class="sem-radio g" name="sem_${sec.key}" id="sem_${sec.key}_verde" value="verde" checked><label class="sem-radio-lbl" for="sem_${sec.key}_verde">🟢 Verde</label>
+          <input type="radio" class="sem-radio y" name="sem_${sec.key}" id="sem_${sec.key}_amarillo" value="amarillo"><label class="sem-radio-lbl" for="sem_${sec.key}_amarillo">🟡 Amarillo</label>
+          <input type="radio" class="sem-radio r" name="sem_${sec.key}" id="sem_${sec.key}_rojo" value="rojo"><label class="sem-radio-lbl" for="sem_${sec.key}_rojo">🔴 Rojo</label>
         </div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Observaciones</label>
-        <textarea class="form-textarea" id="fObs_${sec.key}" rows="2" placeholder="Observaciones para ${sec.label.toLowerCase()}..."></textarea>
-      </div>
-    </div>
-  `).join('');
-  
+      <div class="form-group"><label class="form-label">Observaciones</label><textarea class="form-textarea" id="fObs_${sec.key}" rows="2" placeholder="Observaciones para ${sec.label.toLowerCase()}..."></textarea></div>
+    </div>`).join('');
   navigate('form');
 }
 
@@ -1063,51 +722,30 @@ function cancelForm(){
 function saveAudit(){
   const socio = document.getElementById('fSocio').value.trim();
   if(!socio){ alert('El nombre del socio es requerido'); return; }
-  
-  const semaforos = {};
-  const obs = {};
+  const semaforos = {}, obs = {};
   SECTIONS.forEach(sec=>{
     const checked = document.querySelector(`input[name="sem_${sec.key}"]:checked`);
     semaforos[sec.key] = checked ? checked.value : 'verde';
     obs[sec.key] = document.getElementById('fObs_'+sec.key).value.trim();
   });
-  
   const hallazgos = document.getElementById('fHallazgos').value.trim();
-  const planes = [
-    document.getElementById('fPlan1').value.trim(),
-    document.getElementById('fPlan2').value.trim(),
-    document.getElementById('fPlan3').value.trim()
-  ].filter(Boolean);
-  
+  const planes = [document.getElementById('fPlan1').value.trim(),document.getElementById('fPlan2').value.trim(),document.getElementById('fPlan3').value.trim()].filter(Boolean);
   document.getElementById('loadingOverlay').style.display = 'flex';
-  
   setTimeout(()=>{
     const trainer = store.trainers.find(t=>t.id===currentTrainerId);
-    if(trainer){
-      const newAudit = {
-        id:'a'+Date.now(), socio,
-        date:new Date().toISOString().split('T')[0],
-        semaforos, hallazgos, planes, obs
-      };
-      trainer.audits.unshift(newAudit);
-    }
+    if(trainer) trainer.audits.unshift({id:'a'+Date.now(),socio,date:new Date().toISOString().split('T')[0],semaforos,hallazgos,planes,obs});
     document.getElementById('loadingOverlay').style.display = 'none';
     showToast('Auditoría guardada correctamente');
     showDetail(currentTrainerId);
-  },900);
+  },600);
 }
 
-// ═══════════════════════════════════════════════
-//  ADD TRAINER
-// ═══════════════════════════════════════════════
 function showAddTrainer(){
   document.getElementById('tName').value='';
   document.getElementById('tSocios').value='';
   document.getElementById('trainerModal').style.display='flex';
 }
-function closeTrainerModal(){
-  document.getElementById('trainerModal').style.display='none';
-}
+function closeTrainerModal(){ document.getElementById('trainerModal').style.display='none'; }
 function addTrainer(){
   const name = document.getElementById('tName').value.trim();
   const socios = parseInt(document.getElementById('tSocios').value)||0;
@@ -1118,44 +756,19 @@ function addTrainer(){
   showToast(`${name} agregado correctamente`);
 }
 
-// ═══════════════════════════════════════════════
-//  NAVIGATION
-// ═══════════════════════════════════════════════
 function navigate(page){
   currentPage = page;
   document.getElementById('page-grid').classList.toggle('page-hidden', page!=='grid');
   document.getElementById('page-detail').classList.toggle('page-hidden', page!=='detail');
   document.getElementById('page-form').classList.toggle('page-hidden', page!=='form');
-  
   const btnBack = document.getElementById('btnBack');
   btnBack.classList.toggle('visible', page!=='grid');
-  btnBack.textContent = page==='form' ? '← Volver al Dashboard' : '← Todos los Entrenadores';
-  // re-add icon
-  if(page!=='grid'){
-    btnBack.innerHTML = `<i class="fas fa-arrow-left" style="font-size:10px"></i> ${page==='form'?'Volver al Dashboard':'Todos los Entrenadores'}`;
-  }
-  
+  if(page!=='grid') btnBack.innerHTML = `<i class="fas fa-arrow-left" style="font-size:10px"></i> ${page==='form'?'Volver al Dashboard':'Todos los Entrenadores'}`;
   window.scrollTo(0,0);
 }
+function goBack(){ if(currentPage==='form') showDetail(currentTrainerId); else { navigate('grid'); renderGrid(); } }
+function showToast(msg){ const t=document.getElementById('toast'); document.getElementById('toastText').textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000); }
 
-function goBack(){
-  if(currentPage==='form') showDetail(currentTrainerId);
-  else { navigate('grid'); renderGrid(); }
-}
-
-// ═══════════════════════════════════════════════
-//  TOAST
-// ═══════════════════════════════════════════════
-function showToast(msg){
-  const t = document.getElementById('toast');
-  document.getElementById('toastText').textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3000);
-}
-
-// ═══════════════════════════════════════════════
-//  INIT
-// ═══════════════════════════════════════════════
 renderGrid();
 </script>
 </body>
